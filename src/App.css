@@ -1,0 +1,14 @@
+/* Default styling for all pages except Dashboard */
+.main-content {
+    padding-top: 45px; /* Prevents Navbar from overlapping */
+    min-height: calc(100vh - 120px);
+  }
+  
+  /* Special styling for Dashboard */
+  .dashboard-content {
+    padding: 0; /* Remove extra padding so the dashboard can have its own layout */
+  }
+ 
+  /* Login Page Styling */
+ 
+  

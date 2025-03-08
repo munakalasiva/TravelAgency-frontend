@@ -1,0 +1,141 @@
+/* Center the login container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(156, 148, 148);
+  padding: 20px;
+  min-height:94vh;
+  overflow: hidden;
+}
+
+/* Login card and image wrapper */
+.login-wrapper {
+  display: flex;
+  align-items: stretch; /* Ensures both elements take the same height */
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden; /* Prevents extra spacing */
+}
+
+/* Login card styling */
+.login-card {
+  border-radius: 0px 20px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  padding: 20px;
+  height: 500px; /* Matches image height */
+  background-color: white;
+}
+
+/* Title styling */
+.login-title {
+  text-align: center;
+  font-size: 35px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  margin-bottom: 60px;
+  color:rgb(8, 115, 137);
+  
+  
+}
+
+/* Error message */
+.login-error {
+  color: red;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Login form styling */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+ 
+}
+
+.span-head{
+  color:#21739f;
+  margin-top:20px;
+  font-size: 40px;
+}
+/* Input styling */
+.login-input {
+  border-radius: 5px;
+  height: 30px;
+  padding: 10px;
+  width: 300px;
+  margin: 0px 10px 10px 10px auto;
+  border: 1.5px solid #252627;
+  color:black !important;
+  
+}
+input::placeholder {
+  color: #242222; /* Set a visible color */
+}
+/* Button styling */
+.login-button {
+  background-color: #25a6eb !important;
+  color: white !important;
+  height: 50px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  width: 80%;
+  margin: 20px auto;
+  display: block;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #1e40af;
+}
+
+/* Image Styling */
+.img {
+  width: 450px;
+  height: 540px;
+  border-radius: 20px 0px 0px 20px;
+  
+  /* Ensures image is properly scaled */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    height: auto; /* Allows content to flow naturally */
+  }
+
+  .login-wrapper {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .img {
+    width: 100%;
+    height: 300px; /* Adjust height for mobile */
+    border-radius: 20px 20px 0px 0px;
+  }
+
+  .login-card {
+    border-radius: 0px 0px 20px 20px;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .login-input, .login-button {
+    width: 90%;
+  }
+}
+

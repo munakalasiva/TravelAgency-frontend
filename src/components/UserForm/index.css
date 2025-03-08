@@ -1,0 +1,109 @@
+
+
+  .image-bg {
+  padding-top:50px;
+  padding-bottom: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  /* opacity:0.9; */
+ }
+
+
+
+.booking-card {
+  box-shadow: inset -5px -5px rgba(0, 0, 0, alpha);
+  padding: 20px;
+  border-radius: 10px;
+  background-color:rgba(0, 0, 0, 0.3);
+  margin-top:60px;
+  
+}
+
+.form-container {
+  max-width: 600px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  color: white;
+   /* Light transparency */
+  
+  gap: 15px;
+  position: relative;
+  z-index: 1;
+}
+.input-row {
+  display: flex;
+  gap: 10px;
+ 
+}
+
+.input-row input {
+  flex: 1;
+}
+/* Input Fields */
+.form-container input,
+.form-container select,
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  
+  background-color: rgba(18, 18, 18, 0.2);
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  border-radius: 10px;
+}
+
+/* Placeholder Text */
+input::placeholder,
+select{
+  color: white;
+  opacity: 1;
+}
+
+
+/* Button Styling */
+.form-container button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Converts black icons to white */
+  cursor: pointer;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 100%;
+    padding:15px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding:10px;
+    margin: 10px;
+   
+    
+  }
+  .booking-card{
+    margin:0px 20px 0px 20px;
+  }
+ 
+}

@@ -1,0 +1,203 @@
+
+
+
+/* === General Navbar Styling === */
+.navbar {
+  position: fixed;
+  top:10px;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background: transparent;
+  z-index: 1000;
+  transition: background 0.3s ease-in-out;
+}
+
+/* === Transparent & Solid Navbar Styles === */
+.navbar-transparent {
+  
+  background: transparent;
+}
+
+.navbar-solid {
+  background: #070707;
+}
+
+/* === Navbar Container === */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  
+}
+
+/* === Logo === */
+.logo {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* === Desktop Navigation Links === */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.nav-item:hover {
+  color: #ffcc00;
+}
+
+/* === Logout Button === */
+.logout-btn {
+  background-color: #0084ff;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #e6b800;
+}
+
+/* === Mobile Menu Button === */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* === Mobile Menu (Hidden by Default) === */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background-color: #1e40af;
+  padding: 1rem;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu .nav-item {
+  padding: 0.8rem 0;
+  font-size: 1.2rem;
+}
+
+.mobile-menu .logout-btn {
+  width: 90%;
+  margin: 10px auto;
+}
+
+/* === Responsive Fixes === */
+
+/* 📱 Tablets & Small Screens (Up to 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: none; /* Hide desktop links */
+  }
+
+  .menu-btn {
+    display:block; /* Show mobile menu button */
+    margin-left: auto;
+    margin-right: 50px;
+  }
+
+  .mobile-menu {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    background-color: black;
+    justify-content: center;
+    padding: 1rem;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-menu.open {
+    display: flex; /* Show when menu is open */
+  }
+
+  .mobile-menu .nav-item {
+    padding: 10px 0;
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+  }
+
+  .mobile-menu .logout-btn {
+    width: 90%;
+    margin: 10px auto;
+  }
+}
+
+/* 📱 Mobile (Up to 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .menu-btn {
+    display: block;
+    margin-right: 50px;
+  }
+
+  .mobile-menu {
+    width: 100%;
+    left: 0;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+}
+
+/* 📱 Small Mobile (Up to 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .menu-btn {
+    font-size: 1.8rem;
+  }
+
+  .mobile-menu .nav-item {
+    font-size: 1rem;
+  }
+}
