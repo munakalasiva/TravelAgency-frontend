@@ -7,7 +7,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const navbarClass = location.pathname === "/dashboard";
+  const navbarClass = location.pathname === "/home";
 
   // Logout function
   const handleLogout = () => {
@@ -22,7 +22,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="nav-links">
-          <Link to="/dashboard" className="nav-item">Home</Link>
+          <Link to="/home" className="nav-item">Home</Link>
           <Link to="/userform" className="nav-item">Book Ticket</Link>
           <Link to="/transactions" className="nav-item">Transactions</Link>
           <button className="logout-btn" onClick={handleLogout}>Logout</button> {/* Logout Button */}
@@ -36,7 +36,7 @@ const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
-        <Link to="/dashboard" className="nav-item" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link to="/home" className="nav-item" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/userform" className="nav-item" onClick={() => setMenuOpen(false)}>Book Ticket</Link>
         <Link to="/transactions" className="nav-item" onClick={() => setMenuOpen(false)}>Transactions</Link>
         <button className="logout-btn" onClick={() => { setMenuOpen(false); handleLogout(); }}>Logout</button> {/* Logout for Mobile */}

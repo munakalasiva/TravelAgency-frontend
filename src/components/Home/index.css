@@ -55,6 +55,7 @@
   max-width: 100%;
   overflow: hidden;
   position: relative;
+  margin-top:0px !important;
 }
 
 .slider-container img {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { server } from "../../index.js";
 import "./index.css";
 
 const Transactions = ({ transactions, setEditTransaction, fetchTransactions }) => {
@@ -14,7 +15,7 @@ const Transactions = ({ transactions, setEditTransaction, fetchTransactions }) =
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/transactions/${id}`);
+      await axios.delete(`${server}/api/transactions/${id}`);
       fetchTransactions();
     } catch (error) {
       console.error("Error deleting transaction:", error);
@@ -23,7 +24,7 @@ const Transactions = ({ transactions, setEditTransaction, fetchTransactions }) =
 
   const handleRemind = async (email, name, amountPending) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/remind", {
+      const response = await axios.post(`${server}/api/remind`, {
         email,
         name,
         amountPending,

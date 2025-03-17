@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { server } from "../../index.js";
+
 import "./index.css";
 import bgImage from "../../assets/tourist-from-mountain-top-sun-rays-man-wear-big-backpack-against-sun-light.jpg";
 const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) => {
@@ -50,12 +52,12 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
       if (editTransaction) {
         // Update existing transaction
         await axios.put(
-          `http://localhost:5000/api/transactions/${editTransaction._id}`,
+          `${server}/api/transactions/${editTransaction._id}`,
           formData
         );
       } else {
         // Create new transaction
-        await axios.post("http://localhost:5000/api/transactions", formData);
+        await axios.post(`${server}/api/transactions`, formData);
       }
       // Refresh transactions
       if (fetchTransactions) {

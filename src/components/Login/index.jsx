@@ -21,7 +21,7 @@ const Login = () => {
       credentials.password === defaultUser.password
     ) {
       localStorage.setItem("isAuthenticated", "true"); // Save login state
-      navigate("/dashboard");
+      navigate("/home");
     } else {
       setError("Invalid username or password");
     }

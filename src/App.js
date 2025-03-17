@@ -4,9 +4,12 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 import UserForm from "./components/UserForm";
 import Transactions from "./components/Transactions";
+import { server } from "./index.js";
+
+
 import "./App.css";
 
 const PrivateRoute = ({ children }) => {
@@ -20,12 +23,12 @@ const AppContent = () => {
   
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
-  const isDashboard = location.pathname === "/dashboard";
+  const isDashboard = location.pathname === "/home";
 
   // Fetch transactions from backend
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/transactions");
+      const res = await axios.get(`${server}/api/transactions`);
       setTransactions(res.data);
     } catch (error) {
       console.error("Error fetching transactions:", error);
@@ -42,7 +45,7 @@ const AppContent = () => {
       <div className={!isDashboard && !isLoginPage ? "main-content" : "dashboard-content"}>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route
             path="/userform"
             element={
