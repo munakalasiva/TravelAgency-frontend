@@ -1,12 +1,11 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { server } from "../../index.js";
 
 import "./index.css";
-import bgImage from "../../assets/tourist-from-mountain-top-sun-rays-man-wear-big-backpack-against-sun-light.jpg";
+import bgImage from "../../assets/tourist-from-mountain-top-sun-ra.webp";
+
 const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) => {
-  // Define formData state with initial values
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -20,7 +19,8 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
     amountPending: ""
   });
 
-  // When editing a transaction, prefill form fields
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     if (editTransaction) {
       setFormData({
@@ -32,7 +32,6 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
     }
   }, [editTransaction]);
 
-  // Auto-calculate pending amount when amountTotal or amountAdvance changes
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
@@ -40,30 +39,46 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
     }));
   }, [formData.amountTotal, formData.amountAdvance]);
 
-  // Handle input changes
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Live validation on input change
+    if (name === "phone") {
+      const isValidPhone = /^[6-9]\d{9}$/.test(value);
+      setErrors((prev) => ({ ...prev, phone: isValidPhone ? "" : "Invalid phone number" }));
+    }
+
+    if (name === "email") {
+      const isValidEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value);
+      setErrors((prev) => ({ ...prev, email: isValidEmail ? "" : "Invalid Gmail address" }));
+    }
   };
 
-  // Handle form submission for both creating and updating transactions
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Final validation before submission
+    const isPhoneValid = /^[6-9]\d{9}$/.test(formData.phone);
+    const isEmailValid = /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(formData.email);
+
+    if (!isPhoneValid || !isEmailValid) {
+      setErrors({
+        phone: !isPhoneValid ? "Phone must be a valid 10-digit Indian number" : "",
+        email: !isEmailValid ? "Email must be a valid Gmail address" : ""
+      });
+      return;
+    }
+
     try {
       if (editTransaction) {
-        // Update existing transaction
-        await axios.put(
-          `${server}/api/transactions/${editTransaction._id}`,
-          formData
-        );
+        await axios.put(`${server}/api/transactions/${editTransaction._id}`, formData);
       } else {
-        // Create new transaction
         await axios.post(`${server}/api/transactions`, formData);
       }
-      // Refresh transactions
-      if (fetchTransactions) {
-        fetchTransactions();
-      }
-      // Reset form and edit mode
+
+      if (fetchTransactions) fetchTransactions();
+
       setFormData({
         name: "",
         phone: "",
@@ -77,140 +92,77 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
         amountPending: ""
       });
       setEditTransaction(null);
+      setErrors({});
     } catch (error) {
       console.error("Error submitting transaction:", error);
     }
   };
 
   return (
-    <div style={{
-      backgroundImage: `url(${bgImage})`,
-      backgroundSize: "cover",
-      height: "auto",
-    }} className="image-bg">
+    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover", height: "auto" }} className="image-bg">
       <div className="booking-card">
-    <form className="form-container" onSubmit={handleSubmit} >
-      <h2>{editTransaction ? "Edit Transaction" : "Book Ticket"}</h2>
+        <form className="form-container" onSubmit={handleSubmit}>
+          <h2>{editTransaction ? "Edit Transaction" : "Book Ticket"}</h2>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="phone"
-        placeholder="Phone"
-        value={formData.phone}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
-  <div className="input-row">
-      <input
-        type="text"
-        name="fromAddress"
-        placeholder="From Address"
-        value={formData.fromAddress}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="toAddress"
-        placeholder="To Address"
-        value={formData.toAddress}
-        onChange={handleChange}
-        required
-      />
-  </div>
-      <label>BOOKING DATE</label>
-      <input
-        type="date"
-        name="bookingDate"
-        value={formData.bookingDate}
-        onChange={handleChange}
-        required
-      />
+          <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
 
-      <select
-        name="mode"
-        value={formData.mode}
-        onChange={handleChange}
-        required
-      >
-        <option value="">Select Mode</option>
-        <option value="Car">Car</option>
-        <option value="Bus">Bus</option>
-        <option value="Train">Train</option>
-        <option value="Flight">Flight</option>
-      </select>
+          <input type="text" name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
+          {errors.phone && <span className="error-text">{errors.phone}</span>}
 
-      <input
-        type="number"
-        name="amountTotal"
-        placeholder="Total Amount"
-        value={formData.amountTotal}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="number"
-        name="amountAdvance"
-        placeholder="Advance Amount"
-        value={formData.amountAdvance}
-        onChange={handleChange}
-        required
-      />
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+          {errors.email && <span className="error-text">{errors.email}</span>}
 
-      <label>PENDING AMOUNT</label>
-      <input
-        type="number"
-        name="amountPending"
-        placeholder="Pending Amount"
-        value={formData.amountPending}
-        readOnly
-      />
+          <div className="input-row">
+            <input type="text" name="fromAddress" placeholder="From Address" value={formData.fromAddress} onChange={handleChange} required />
+            <input type="text" name="toAddress" placeholder="To Address" value={formData.toAddress} onChange={handleChange} required />
+          </div>
 
-      <button type="submit">
-        {editTransaction ? "Update Transaction" : "Book Ticket"}
-      </button>
-      
-      {editTransaction && (
-        <button 
-        type="button" 
-        onClick={() => {
-          setEditTransaction(null);
-          setFormData({
-            name: "",
-            phone: "",
-            email: "",
-            fromAddress: "",
-            toAddress: "",
-            bookingDate: "",
-            mode: "",
-            amountTotal: "",
-            amountAdvance: "",
-            amountPending: "",
-          });
-        }}
-      >
-        Cancel Edit
-      </button>
-      
-      )}
-    </form>
-    </div>
+          <label>BOOKING DATE</label>
+          <input type="date" name="bookingDate" value={formData.bookingDate} onChange={handleChange} required />
+
+          <select name="mode" value={formData.mode} onChange={handleChange} required>
+            <option value="">Select Mode</option>
+            <option value="Car">Car</option>
+            <option value="Bus">Bus</option>
+            <option value="Train">Train</option>
+            <option value="Flight">Flight</option>
+          </select>
+
+          <input type="number" name="amountTotal" placeholder="Total Amount" value={formData.amountTotal} onChange={handleChange} required />
+          <input type="number" name="amountAdvance" placeholder="Advance Amount" value={formData.amountAdvance} onChange={handleChange} required />
+
+          <label>PENDING AMOUNT</label>
+          <input type="number" name="amountPending" placeholder="Pending Amount" value={formData.amountPending} readOnly />
+
+          <button type="submit">
+            {editTransaction ? "Update Transaction" : "Book Ticket"}
+          </button>
+
+          {editTransaction && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditTransaction(null);
+                setFormData({
+                  name: "",
+                  phone: "",
+                  email: "",
+                  fromAddress: "",
+                  toAddress: "",
+                  bookingDate: "",
+                  mode: "",
+                  amountTotal: "",
+                  amountAdvance: "",
+                  amountPending: ""
+                });
+                setErrors({});
+              }}
+            >
+              Cancel Edit
+            </button>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

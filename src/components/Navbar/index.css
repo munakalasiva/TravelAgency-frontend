@@ -15,11 +15,12 @@
 
 /* === Transparent & Solid Navbar Styles === */
 .navbar-transparent {
-  
+  padding:20px;
   background: transparent;
 }
 
 .navbar-solid {
+  padding:20px;
   background: #070707;
 }
 
@@ -88,8 +89,10 @@
 .mobile-menu {
   display: none;
   flex-direction: column;
+  align-items: center; 
+  justify-content:center;
   background-color: #1e40af;
-  padding: 1rem;
+  padding: 1rem 0;
   position: absolute;
   top: 60px;
   left: 0;
@@ -101,13 +104,18 @@
 .mobile-menu .nav-item {
   padding: 0.8rem 0;
   font-size: 1.2rem;
+  text-align: center;
 }
 
+
+/* Make Logout Button match nav-items */
 .mobile-menu .logout-btn {
-  width: 90%;
-  margin: 10px auto;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 1.1rem;
 }
-
 /* === Responsive Fixes === */
 
 /* 📱 Tablets & Small Screens (Up to 1024px) */
@@ -141,7 +149,8 @@
   }
 
   .mobile-menu.open {
-    display: flex; /* Show when menu is open */
+    display: flex;
+     /* Show when menu is open */
   }
 
   .mobile-menu .nav-item {
@@ -199,5 +208,9 @@
 
   .mobile-menu .nav-item {
     font-size: 1rem;
+    margin-right:30px;
+  }
+  .mobile-menu .logout-btn{
+   margin-left:45px;
   }
 }

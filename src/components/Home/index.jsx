@@ -41,10 +41,10 @@ const Dashboard = () => {
     <div className="slider-container">
     <Slider {...settings}>
       <div>
-        <img className="banner" src="/banner1.png" alt="Banner" style={{ width: "100%", height: "auto"}} />
+        <img className="banner" src="/banner1.webp" alt="Banner" style={{ width: "100%", height: "auto"}} />
       </div>
       <div>
-        <img src="/travel2.png" alt="Banner" style={{ width: "100%", height: "auto" }} />
+        <img src="/travel2.webp" alt="Banner" style={{ width: "100%", height: "auto" }} />
       </div>
     </Slider>
     </div>
