@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-export const server = "http://localhost:5000";
-// export const server = "https://travelagency-backend-yx44.onrender.com";
+// export const server = "http://localhost:5000";
+export const server = "https://travelagency-backend-yx44.onrender.com";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
