@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { server } from "../../index.js";
@@ -16,6 +17,7 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
     mode: "",
     amountTotal: "",
     amountAdvance: "",
+    refundAmount: "",
     amountPending: ""
   });
 
@@ -27,7 +29,8 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
         ...editTransaction,
         bookingDate: editTransaction.bookingDate
           ? new Date(editTransaction.bookingDate).toISOString().split("T")[0]
-          : ""
+          : "",
+        refundAmount: editTransaction.refundAmount || ""
       });
     }
   }, [editTransaction]);
@@ -35,15 +38,18 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      amountPending: Number(prev.amountTotal) - Number(prev.amountAdvance)
+      amountPending: (
+        Number(prev.amountTotal || 0) -
+        Number(prev.amountAdvance || 0) -
+        Number(prev.refundAmount || 0)
+      ).toString()
     }));
-  }, [formData.amountTotal, formData.amountAdvance]);
+  }, [formData.amountTotal, formData.amountAdvance, formData.refundAmount]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    // Live validation on input change
     if (name === "phone") {
       const isValidPhone = /^[6-9]\d{9}$/.test(value);
       setErrors((prev) => ({ ...prev, phone: isValidPhone ? "" : "Invalid phone number" }));
@@ -57,8 +63,6 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Final validation before submission
     const isPhoneValid = /^[6-9]\d{9}$/.test(formData.phone);
     const isEmailValid = /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(formData.email);
 
@@ -89,6 +93,7 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
         mode: "",
         amountTotal: "",
         amountAdvance: "",
+        refundAmount: "",
         amountPending: ""
       });
       setEditTransaction(null);
@@ -130,6 +135,7 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
 
           <input type="number" name="amountTotal" placeholder="Total Amount" value={formData.amountTotal} onChange={handleChange} required />
           <input type="number" name="amountAdvance" placeholder="Advance Amount" value={formData.amountAdvance} onChange={handleChange} required />
+          <input type="number" name="refundAmount" placeholder="Refund Amount" value={formData.refundAmount} onChange={handleChange} />
 
           <label>PENDING AMOUNT</label>
           <input type="number" name="amountPending" placeholder="Pending Amount" value={formData.amountPending} readOnly />
@@ -153,6 +159,7 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
                   mode: "",
                   amountTotal: "",
                   amountAdvance: "",
+                  refundAmount: "",
                   amountPending: ""
                 });
                 setErrors({});

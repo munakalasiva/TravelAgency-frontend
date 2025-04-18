@@ -103,17 +103,20 @@ const Transactions = ({ transactions, setEditTransaction, fetchTransactions }) =
 
       <div className="table-container">
         <table>
-          <thead>
+        <thead>
             <tr>
               <th>Name</th>
               <th>Phone</th>
               <th>From-To</th>
               <th>Booking Date</th>
               <th>Total Amount</th>
-              <th>Pending Amount</th>
+              <th>Advance</th>
+              <th>Refund</th>
+              <th>Pending</th>
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {!selectedUser
               ? uniqueUsers.map((user, index) => (
@@ -123,7 +126,10 @@ const Transactions = ({ transactions, setEditTransaction, fetchTransactions }) =
                     <td>{user.fromAddress} → {user.toAddress}</td>
                     <td>{new Date(user.bookingDate).toLocaleDateString()}</td>
                     <td>{user.amountTotal}</td>
+                    <td>{user.amountAdvance}</td>
+                    <td>{user.refundAmount || 0}</td>
                     <td>{user.amountPending}</td>
+
                     <td className="action-buttons">
                       <button onClick={() => setSelectedUser(user)}>View ({user.count})</button>
                     </td>
@@ -136,6 +142,8 @@ const Transactions = ({ transactions, setEditTransaction, fetchTransactions }) =
                     <td>{txn.fromAddress} → {txn.toAddress}</td>
                     <td>{new Date(txn.bookingDate).toLocaleDateString()}</td>
                     <td>{txn.amountTotal}</td>
+                    <td>{txn.amountAdvance}</td>
+                    <td>{txn.refundAmount || 0}</td>
                     <td>{txn.amountPending}</td>
                     <td className="action-buttons">
                       <button

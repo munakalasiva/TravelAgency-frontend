@@ -83,6 +83,7 @@
   font-size: 2rem;
   color: white;
   cursor: pointer;
+
 }
 
 /* === Mobile Menu (Hidden by Default) === */
@@ -206,11 +207,5 @@
     font-size: 1.8rem;
   }
 
-  .mobile-menu .nav-item {
-    font-size: 1rem;
-    margin-right:30px;
-  }
-  .mobile-menu .logout-btn{
-   margin-left:45px;
-  }
+ 
 }
