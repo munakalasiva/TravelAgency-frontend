@@ -5,7 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // export const server = "http://localhost:5000";
-export const server = "https://travelagency-backend-h86d.onrender.com";
+export const server = "https://travelagency-backend-miqz.onrender.com";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

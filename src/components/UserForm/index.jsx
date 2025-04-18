@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { server } from "../../index.js";
@@ -23,6 +22,15 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
 
   const [errors, setErrors] = useState({});
 
+  // 🔢 Function to calculate pending amount correctly
+  const calculatePending = (total = 0, advance = 0, refund = 0) => {
+    total = Number(total);
+    advance = Number(advance);
+    refund = Number(refund);
+    return refund > 0 ? (advance - refund) : (total - advance);
+  };
+
+  // Pre-fill form if editing
   useEffect(() => {
     if (editTransaction) {
       setFormData({
@@ -35,14 +43,11 @@ const UserForm = ({ fetchTransactions, editTransaction, setEditTransaction }) =>
     }
   }, [editTransaction]);
 
+  // 🔁 Recalculate pending amount on any value change
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      amountPending: (
-        Number(prev.amountTotal || 0) -
-        Number(prev.amountAdvance || 0) -
-        Number(prev.refundAmount || 0)
-      ).toString()
+      amountPending: calculatePending(prev.amountTotal, prev.amountAdvance, prev.refundAmount).toString()
     }));
   }, [formData.amountTotal, formData.amountAdvance, formData.refundAmount]);
 
